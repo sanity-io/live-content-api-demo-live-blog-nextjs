@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Live Blog: Sanity Live Content API Example with Next.js
 
-## Getting Started
+This is a demo of how you can use Sanity's [Live Content API][live-content-api] to power a live blog.
 
-First, run the development server:
+The Live Content API makes it possible to automatically re-fetch content updates from the Sanity CDN.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+In this example, we use a canary of the [`next-sanity`][next-sanity] toolkit to import a client that can generate a `<LiveSubscription />` component that you can add to any component to make it automatically fetch published content live. It works with React Server Components (no `"use client"` needed).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+However, this demo does rely on Next.js’ `searchParams` which has to be passed down from the route component.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Try the demo locally](#try-the-demo-locally)
+- [Files of note](#files-of-note)
+- [Credits](#credits)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Try the demo locally
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone this repo
+2. Install its dependencies (`pnpm i`)
+3. Run `pnpm dlx sanity@latest init --env` to create a Sanity project and add the configuration to an `.env` file
+4. Run `pnpm dlx sanity dataset import demo.tar.gz production` to import some demo data
+5. Run `pnpm dev` to start the dev server
+6. If you open [http://localhost:3000/studio][localhostStudio] you will be asked to add it to your project’s CORS origin settings (`pnpm dlx sanity cors add http://localhost:3000 --credentials` will also do the trick)
+7. And you should be good to go!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Note that this demo uses the experimental (`vX`) version of the Live Content API, and hence you will get some warnings in your console while you're running it.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Files of note
 
-## Deploy on Vercel
+The following files have interesting stuff relevant to this demo:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `./sanity/lib/fetch.ts` configures the `sanityFetch` that returns the `<LiveSubscription />` component
+- The following React Server Components have Live Content implemented
+  - `./components/Feed.tsx`
+  - `./components/Speakers.tsx`
+  - `./components/Schedule.tsx`
+- The content model/schema for the Studio is found in `./sanity/schemaTypes`
+## Credits
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This demo uses the following things:
+
+- The example content is borrowed from [React Conf 2024][react-conf]
+- [v0][v0] for initial UI generation
+- [Tailwind.css][tailwind] for styling
+- [Next.js][next] App Router with React Server Components
+- [Sanity][sanity] as the CMS and Live Content API
+- [Sanity TypeGen][typegen] for TypeScript type generation for the content
+- Some light sprinkeling of [TypeScript][typescript]
+
+[live-content-api]: https://www.sanity.io/docs
+[next-sanity]: https://github.com/sanity-io/next-sanity
+[localhostStudio]: http://localhost:3000/studio
+[v0]: https://v0.dev
+[tailwind]: https://tailwindcss.com
+[next]: https://nextjs.org
+[sanity]: https://www.sanity.io
+[typegen]: https://www.sanity.io/docs/sanity-typegen
+[typescript]: https://www.typescriptlang.org/
+[react-conf]: https://conf.react.dev/

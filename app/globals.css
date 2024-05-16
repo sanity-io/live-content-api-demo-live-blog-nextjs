@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.timer {
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+}
