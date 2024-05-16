@@ -1,12 +1,14 @@
 # Live Blog: Sanity Live Content API Example with Next.js
 
-This is a demo of how you can use Sanity's [Live Content API][live-content-api] to power a live blog.
+This is a demo of using Sanity's [Live Content API][live-content-api] to power a live blog.
+
+![CleanShot 2024-05-16 at 16 17 40](https://github.com/sanity-io/live-content-api-demo-live-blog-nextjs/assets/1131579/262fe005-70fd-43c2-8a9c-498788829f33)
 
 The Live Content API makes it possible to automatically re-fetch content updates from the Sanity CDN.
 
 In this example, we use a canary of the [`next-sanity`][next-sanity] toolkit to import a client that can generate a `<LiveSubscription />` component that you can add to any component to make it automatically fetch published content live. It works with React Server Components (no `"use client"` needed).
 
-However, this demo does rely on Next.js’ `searchParams` which has to be passed down from the route component.
+This demo relies on Next.js’ `searchParams`, which must be passed down from the route component.
 
 - [Try the demo locally](#try-the-demo-locally)
 - [Files of note](#files-of-note)
